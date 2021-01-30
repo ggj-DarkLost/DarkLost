@@ -40,8 +40,9 @@ public class PlayerMovement : MonoBehaviour
     {
         float moveX = Input.GetAxis("Horizontal"); 
         float moveY = Input.GetAxis("Vertical");
-
-        direction = new Vector3(moveX, moveY, 0);
+        if (moveX != 0 || moveY != 0) { 
+            direction = new Vector3(moveX, moveY, 0);
+        }
         moveDirection = new Vector2(moveX, moveY).normalized;
 
     }
