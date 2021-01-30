@@ -167,6 +167,7 @@ GameObject:
   - component: {fileID: 2391688057108180614}
   - component: {fileID: 8649060720641739687}
   - component: {fileID: 3524179945783193720}
+  - component: {fileID: 5847932872517324468}
   m_Layer: 0
   m_Name: PointEnemy
   m_TagString: Untagged
@@ -296,6 +297,25 @@ MonoBehaviour:
   agentMover: {fileID: 8649060720641739687}
   FlashLight: {fileID: 4969674354008169759}
   FLRotateSpeed: 0.3
+--- !u!95 &5847932872517324468
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4969674354008169757}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 6e0799e5ec5c645e4911c9ee5e82ad20, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &4969674355044244965
 GameObject:
   m_ObjectHideFlags: 0
