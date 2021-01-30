@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1596665655658440880}
   - component: {fileID: 1596665655658440783}
   - component: {fileID: 1596665655658440782}
-  - component: {fileID: 1596665655658440781}
   - component: {fileID: 1596665655658440780}
   m_Layer: 11
   m_Name: Dog
@@ -105,25 +104,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &1596665655658440781
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1596665655658440779}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: d4960958f2809427ab50f0d831f9a26d, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!61 &1596665655658440780
 BoxCollider2D:
   m_ObjectHideFlags: 0

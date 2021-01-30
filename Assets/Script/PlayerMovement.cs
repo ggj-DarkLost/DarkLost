@@ -6,34 +6,17 @@ using UnityEngine.Experimental.Rendering.Universal;
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
-
-    [Header("移动参数")]
     public float moveSpeed;
     Vector2 moveDirection;
-    float moveX, moveY,animMove;
-    bool isMove = false;
-
-    [Header("灯光参数")]
-    public Light2D torchLight;
     bool isLightOpen;
+    public Light2D torchLight;
     Vector3 direction;
-
-    [Header("动画参数")]
-    private int idleX,idleY,walkX,walkY;
-    Animator anim;
-
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         torchLight.gameObject.SetActive(false);
-        anim = GetComponent<Animator>();
-
-        idleX = Animator.StringToHash("X");
-        idleY = Animator.StringToHash("Y");
-        walkX = Animator.StringToHash("walkX");
-        walkY = Animator.StringToHash("walkY");
     }
 
     // Update is called once per frame
@@ -41,10 +24,6 @@ public class PlayerMovement : MonoBehaviour
     {
         ProcessInputs();
         TorchLightChange();
-        anim.SetFloat(idleX, Input.GetAxis("Horizontal"));
-        anim.SetFloat(idleY, Input.GetAxis("Vertical"));
-        anim.SetFloat(walkX, Input.GetAxis("Horizontal"));
-        anim.SetFloat(walkY, Input.GetAxis("Vertical"));
     }
 
     private void FixedUpdate()
@@ -53,16 +32,14 @@ public class PlayerMovement : MonoBehaviour
         if (isLightOpen)
         {
             //TorchRotation();
-            TorchRotation();
+            TorchRotation1();
         }
     }
 
     void ProcessInputs()
     {
-        moveX = Input.GetAxis("Horizontal");
-        moveY = Input.GetAxis("Vertical");
-        animMove = Input.GetAxisRaw("Horizontal");
-
+        float moveX = Input.GetAxis("Horizontal"); 
+        float moveY = Input.GetAxis("Vertical");
         if (moveX != 0 || moveY != 0) { 
             direction = new Vector3(moveX, moveY, 0);
         }
@@ -71,11 +48,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void Move()
     {
-        rb.velocity = new Vector2(moveDirection.x * moveSpeed * Time.fixedDeltaTime, moveDirection.y * moveSpeed * Time.fixedDeltaTime);
-        
-            anim.SetFloat("Speed", Mathf.Abs(animMove));
-        
-        FaceDirection();
+        rb.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
         
     }
     void TorchLightChange()
@@ -111,16 +84,8 @@ public class PlayerMovement : MonoBehaviour
     //    transform.up = direction;
     //}
 
-    void TorchRotation()
+    void TorchRotation1()
     {
         torchLight.gameObject.transform.up = direction;
-    }
-
-    void FaceDirection()
-    {
-        if (moveX < 0)
-            transform.localScale = new Vector2(6, 6);
-        if (moveX > 0)
-            transform.localScale = new Vector2(-6, 6);
     }
 }
