@@ -16,11 +16,18 @@ public class ActiveAI : MonoBehaviour
     [Space]
     public Transform FlashLight;
     public float FLRotateSpeed;
-    [Space]
-    NavMeshAgent navMeshAgent;
+    //[Space]
+    //NavMeshAgent navMeshAgent;
 
 
 
+    public void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "PlayerActiveCollider")
+        {
+            GetComponent<ActiveAI>().enabled = false;
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -28,9 +35,9 @@ public class ActiveAI : MonoBehaviour
         CRLN = 0;
         agentMover.target = RountineLocations[CRLN];
 
-        navMeshAgent = GetComponent<NavMeshAgent>();
-        navMeshAgent.updateRotation = false;
-        navMeshAgent.updateUpAxis = false;
+        //navMeshAgent = GetComponent<NavMeshAgent>();
+        //navMeshAgent.updateRotation = false;
+        //navMeshAgent.updateUpAxis = false;
     }
 
     // Update is called once per frame
@@ -50,7 +57,7 @@ public class ActiveAI : MonoBehaviour
             }
 
             agentMover.target = RountineLocations[CRLN];
-            navMeshAgent.SetDestination(RountineLocations[CRLN].position);
+            //navMeshAgent.SetDestination(RountineLocations[CRLN].position);
         }
 
         float angle = 0;
@@ -58,5 +65,8 @@ public class ActiveAI : MonoBehaviour
         Vector3 relative = FlashLight.transform.InverseTransformPoint(RountineLocations[CRLN].position);
         angle = Mathf.Atan2(relative.x, relative.y) * Mathf.Rad2Deg;
         FlashLight.transform.Rotate(0, 0, -angle*FLRotateSpeed);
+
+
+
     }
 }
