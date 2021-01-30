@@ -41,6 +41,11 @@ public class PlayerMovement : MonoBehaviour
     void Move()
     {
         rb.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
+        if (isLightOpen)
+        {
+            TorchRotation();
+        }
+        
     }
     void TorchLightChange()
     {
@@ -60,5 +65,14 @@ public class PlayerMovement : MonoBehaviour
                 isLightOpen = true;
             }
         }
+    }
+    void TorchRotation()
+    {
+        Vector3 mouse = Input.mousePosition;
+        Vector3 torch = Camera.main.WorldToScreenPoint(transform.position);
+        Vector3 direction = mouse - torch;
+        direction.z = 0f;
+        direction = direction.normalized;
+        transform.up = direction;
     }
 }
