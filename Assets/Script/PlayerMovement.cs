@@ -10,14 +10,18 @@ public class PlayerMovement : MonoBehaviour
     [Header("移动参数")]
     public float moveSpeed;
     Vector2 moveDirection;
-    float moveX, moveY;
+    float moveX, moveY,animMove;
+    bool isMove = false;
 
     [Header("灯光参数")]
     public Light2D torchLight;
     bool isLightOpen;
     Vector3 direction;
-    
+
+    [Header("动画参数")]
+    private int idleX,idleY,walkX,walkY;
     Animator anim;
+
 
     // Start is called before the first frame update
     void Start()
@@ -25,6 +29,11 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         torchLight.gameObject.SetActive(false);
         anim = GetComponent<Animator>();
+
+        idleX = Animator.StringToHash("X");
+        idleY = Animator.StringToHash("Y");
+        walkX = Animator.StringToHash("walkX");
+        walkY = Animator.StringToHash("walkY");
     }
 
     // Update is called once per frame
@@ -32,6 +41,10 @@ public class PlayerMovement : MonoBehaviour
     {
         ProcessInputs();
         TorchLightChange();
+        anim.SetFloat(idleX, Input.GetAxis("Horizontal"));
+        anim.SetFloat(idleY, Input.GetAxis("Vertical"));
+        anim.SetFloat(walkX, Input.GetAxis("Horizontal"));
+        anim.SetFloat(walkY, Input.GetAxis("Vertical"));
     }
 
     private void FixedUpdate()
@@ -46,8 +59,10 @@ public class PlayerMovement : MonoBehaviour
 
     void ProcessInputs()
     {
-        moveX = Input.GetAxis("Horizontal"); 
+        moveX = Input.GetAxis("Horizontal");
         moveY = Input.GetAxis("Vertical");
+        animMove = Input.GetAxisRaw("Horizontal");
+
         if (moveX != 0 || moveY != 0) { 
             direction = new Vector3(moveX, moveY, 0);
         }
@@ -56,8 +71,12 @@ public class PlayerMovement : MonoBehaviour
     }
     void Move()
     {
-        rb.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
+        rb.velocity = new Vector2(moveDirection.x * moveSpeed * Time.fixedDeltaTime, moveDirection.y * moveSpeed * Time.fixedDeltaTime);
+        
+            anim.SetFloat("Speed", Mathf.Abs(animMove));
+        
         FaceDirection();
+        
     }
     void TorchLightChange()
     {
@@ -100,12 +119,8 @@ public class PlayerMovement : MonoBehaviour
     void FaceDirection()
     {
         if (moveX < 0)
-            transform.localScale = new Vector2(-1, 1);
+            transform.localScale = new Vector2(6, 6);
         if (moveX > 0)
-            transform.localScale = new Vector2(1, 1);
-        if (moveY < 0)
-            transform.localScale = new Vector2(-1, 1);
-        if (moveY > 0)
-            transform.localScale = new Vector2(1, 1);
+            transform.localScale = new Vector2(-6, 6);
     }
 }
