@@ -320,7 +320,7 @@ MonoBehaviour:
   Speed: 5
   ActiveDistance: 0.5
   agentMover: {fileID: 1440563316}
-  FlashLight: {fileID: 4969674354008169759}
+  FlashLight: {fileID: 1509545053915462764}
   FLRotateSpeed: 0.3
 --- !u!114 &1440563316
 MonoBehaviour:
