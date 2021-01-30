@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     Vector2 moveDirection;
     bool isLightOpen;
     public Light2D torchLight;
+    Vector3 direction;
 
     // Start is called before the first frame update
     void Start()
@@ -28,23 +29,25 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         Move();
+        if (isLightOpen)
+        {
+            //TorchRotation();
+            TorchRotation1();
+        }
     }
 
     void ProcessInputs()
     {
-        float moveX = Input.GetAxisRaw("Horizontal"); 
-        float moveY = Input.GetAxisRaw("Vertical");
+        float moveX = Input.GetAxis("Horizontal"); 
+        float moveY = Input.GetAxis("Vertical");
 
+        direction = new Vector3(moveX, moveY, 0);
         moveDirection = new Vector2(moveX, moveY).normalized;
 
     }
     void Move()
     {
         rb.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
-        if (isLightOpen)
-        {
-            TorchRotation();
-        }
         
     }
     void TorchLightChange()
@@ -62,17 +65,26 @@ public class PlayerMovement : MonoBehaviour
             if (Input.GetMouseButtonDown(0))
             {
                 torchLight.gameObject.SetActive(true);
+                torchLight.gameObject.transform.up = direction;
                 isLightOpen = true;
             }
         }
     }
-    void TorchRotation()
+
+    //光随鼠标变
+
+    //void TorchRotation()
+    //{
+    //    Vector3 mouse = Input.mousePosition;
+    //    Vector3 torch = Camera.main.WorldToScreenPoint(transform.position);
+    //    Vector3 direction = mouse - torch;
+    //    direction.z = 0f;
+    //    direction = direction.normalized;
+    //    transform.up = direction;
+    //}
+
+    void TorchRotation1()
     {
-        Vector3 mouse = Input.mousePosition;
-        Vector3 torch = Camera.main.WorldToScreenPoint(transform.position);
-        Vector3 direction = mouse - torch;
-        direction.z = 0f;
-        direction = direction.normalized;
-        transform.up = direction;
+        torchLight.gameObject.transform.up = direction;
     }
 }
