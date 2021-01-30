@@ -269,7 +269,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 147f22a3e920649728545b75a88d71dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 60
+  moveSpeed: 2
   torchLight: {fileID: 6082076337516677222}
 --- !u!212 &431020457986967828
 SpriteRenderer:
