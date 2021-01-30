@@ -6,17 +6,25 @@ using UnityEngine.Experimental.Rendering.Universal;
 public class PlayerMovement : MonoBehaviour
 {
     private Rigidbody2D rb;
+
+    [Header("移动参数")]
     public float moveSpeed;
     Vector2 moveDirection;
-    bool isLightOpen;
+    float moveX, moveY;
+
+    [Header("灯光参数")]
     public Light2D torchLight;
+    bool isLightOpen;
     Vector3 direction;
+    
+    Animator anim;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         torchLight.gameObject.SetActive(false);
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -32,14 +40,14 @@ public class PlayerMovement : MonoBehaviour
         if (isLightOpen)
         {
             //TorchRotation();
-            TorchRotation1();
+            TorchRotation();
         }
     }
 
     void ProcessInputs()
     {
-        float moveX = Input.GetAxis("Horizontal"); 
-        float moveY = Input.GetAxis("Vertical");
+        moveX = Input.GetAxis("Horizontal"); 
+        moveY = Input.GetAxis("Vertical");
         if (moveX != 0 || moveY != 0) { 
             direction = new Vector3(moveX, moveY, 0);
         }
@@ -49,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
     void Move()
     {
         rb.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
-        
+        FaceDirection();
     }
     void TorchLightChange()
     {
@@ -84,8 +92,20 @@ public class PlayerMovement : MonoBehaviour
     //    transform.up = direction;
     //}
 
-    void TorchRotation1()
+    void TorchRotation()
     {
         torchLight.gameObject.transform.up = direction;
+    }
+
+    void FaceDirection()
+    {
+        if (moveX < 0)
+            transform.localScale = new Vector2(-1, 1);
+        if (moveX > 0)
+            transform.localScale = new Vector2(1, 1);
+        if (moveY < 0)
+            transform.localScale = new Vector2(-1, 1);
+        if (moveY > 0)
+            transform.localScale = new Vector2(1, 1);
     }
 }

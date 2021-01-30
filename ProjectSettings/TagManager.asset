@@ -3,10 +3,7 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - Enemy
-  - EnemyDetector
-  - PlayerActiveCollider
+  tags: []
   layers:
   - Default
   - TransparentFX
@@ -16,10 +13,10 @@ TagManager:
   - UI
   - 
   - 
-  - PlayerActivator
-  - EnemyDetector
-  - 
-  - 
+  - Background
+  - Platform
+  - Player
+  - Frontground
   - 
   - 
   - 
@@ -49,4 +46,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 1395467145
+    locked: 0
+  - name: Frontground
+    uniqueID: 2260810039
     locked: 0
