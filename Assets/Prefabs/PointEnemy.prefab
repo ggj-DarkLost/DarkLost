@@ -51,7 +51,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 0.6
   m_LightVolumeOpacity: 0
-  m_ApplyToSortingLayers: 00000000
+  m_ApplyToSortingLayers: 0000000007e88fd489232d533739c186
   m_LightCookieSprite: {fileID: 0}
   m_UseNormalMap: 0
   m_LightOrder: 0
@@ -225,18 +225,18 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -928498003
-  m_SortingLayer: 0
+  m_SortingLayerID: 1395467145
+  m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 7cd2ef5d8147d4f55b9e897b98a6e39d, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.323, y: 1.869}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 0
+  m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!195 &2391688057108180614
@@ -291,7 +291,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   CRLN: 0
-  Speed: 0
+  Speed: 5
   ActiveDistance: 0.5
   agentMover: {fileID: 8649060720641739687}
   FlashLight: {fileID: 4969674354008169759}
