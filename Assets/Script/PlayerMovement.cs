@@ -74,6 +74,7 @@ public class PlayerMovement : MonoBehaviour
     }
     void Move()
     {
+        SoundManager.instance.WalkAudio();
         rb.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
 
         anim.SetFloat("Speed", Mathf.Abs(animMove));
@@ -88,6 +89,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
+                SoundManager.instance.OpenTorchAudio();
                 torchLight.gameObject.SetActive(false);
                 isLightOpen = false;
             }
@@ -96,6 +98,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
+                SoundManager.instance.OpenTorchAudio();
                 torchLight.gameObject.SetActive(true);
                 torchLight.gameObject.transform.up = direction;
                 isLightOpen = true;

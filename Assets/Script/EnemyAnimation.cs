@@ -30,5 +30,6 @@ public class EnemyAnimation : MonoBehaviour
     void moveAnim(float dis)
     {
         anim.SetFloat("dis", dis);
+        SoundManager.instance.EnemyAudio();
     }
 }
