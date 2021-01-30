@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 direction;
 
     [Header("动画参数")]
-    private int idleX, idleY, walkX, walkY;
+    private int idleX, idleY, walkX, walkY,isDeath,isOut;
     Animator anim;
 
 
@@ -34,6 +34,8 @@ public class PlayerMovement : MonoBehaviour
         idleY = Animator.StringToHash("Y");
         walkX = Animator.StringToHash("walkX");
         walkY = Animator.StringToHash("walkY");
+        isDeath = Animator.StringToHash("isDeath");
+        isOut = Animator.StringToHash("isOut");
     }
 
     // Update is called once per frame
@@ -75,6 +77,7 @@ public class PlayerMovement : MonoBehaviour
         rb.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
 
         anim.SetFloat("Speed", Mathf.Abs(animMove));
+        anim.SetBool(isDeath, false);
 
         FaceDirection();
 
