@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -10,18 +11,31 @@ public class PlayerMovement : MonoBehaviour
     [Header("移动参数")]
     public float moveSpeed;
     Vector2 moveDirection;
-    float moveX, moveY, animMove;
+    float moveX, moveY, animMoveX, animMoveY;
     bool isMove = false;
 
     [Header("灯光参数")]
     public Light2D torchLight;
     bool isLightOpen;
     Vector3 direction;
+    //bool outFlag = false;
 
     [Header("动画参数")]
     private int idleX, idleY, walkX, walkY,isDeath,isOut;
     Animator anim;
 
+    public string playerCondition;
+    //PlayerConditions: default, UnderSpot, Vanishing
+    public float TimeCountSet;
+    public float TimeCount;
+    [Space]
+    public GameObject PlayerActiveCollider;
+
+    [Header("动画参数")]
+    public AudioSource walkAudio;
+    public AudioSource openTorchAudio;
+    public AudioSource stuckAudio;
+    public AudioSource outAudio;
 
     // Start is called before the first frame update
     void Start()
@@ -36,6 +50,8 @@ public class PlayerMovement : MonoBehaviour
         walkY = Animator.StringToHash("walkY");
         isDeath = Animator.StringToHash("isDeath");
         isOut = Animator.StringToHash("isOut");
+
+        playerCondition = "default";
     }
 
     // Update is called once per frame
@@ -47,6 +63,8 @@ public class PlayerMovement : MonoBehaviour
         anim.SetFloat(idleY, Input.GetAxis("Vertical"));
         anim.SetFloat(walkX, Input.GetAxis("Horizontal"));
         anim.SetFloat(walkY, Input.GetAxis("Vertical"));
+
+        PlayerCondition();
     }
 
     private void FixedUpdate()
@@ -63,7 +81,8 @@ public class PlayerMovement : MonoBehaviour
     {
         moveX = Input.GetAxis("Horizontal");
         moveY = Input.GetAxis("Vertical");
-        animMove = Input.GetAxisRaw("Horizontal");
+        animMoveX = Input.GetAxisRaw("Horizontal");
+        animMoveY = Input.GetAxisRaw("Vertical");
 
         if (moveX != 0 || moveY != 0)
         {
@@ -74,11 +93,14 @@ public class PlayerMovement : MonoBehaviour
     }
     void Move()
     {
-        SoundManager.instance.WalkAudio();
-        rb.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
-
-        anim.SetFloat("Speed", Mathf.Abs(animMove));
-        anim.SetBool(isDeath, false);
+        if (playerCondition == "default")
+        {
+            
+            rb.velocity = new Vector2(moveDirection.x * moveSpeed, moveDirection.y * moveSpeed);
+            walkAudio.Play();
+        }
+        anim.SetFloat("SpeedX", Mathf.Abs(animMoveX));
+        anim.SetFloat("SpeedY", Mathf.Abs(animMoveY));
 
         FaceDirection();
 
@@ -89,7 +111,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-                SoundManager.instance.OpenTorchAudio();
+                openTorchAudio.Play();
                 torchLight.gameObject.SetActive(false);
                 isLightOpen = false;
             }
@@ -98,7 +120,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-                SoundManager.instance.OpenTorchAudio();
+                openTorchAudio.Play();
                 torchLight.gameObject.SetActive(true);
                 torchLight.gameObject.transform.up = direction;
                 isLightOpen = true;
@@ -129,5 +151,69 @@ public class PlayerMovement : MonoBehaviour
             transform.localScale = new Vector2(6, 6);
         if (moveX > 0)
             transform.localScale = new Vector2(-6, 6);
+    }
+
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "EnemyDetector")
+        {
+            playerCondition = "UnderSpot";
+        }
+    }
+
+    public void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.tag == "EnemyDetector")
+        {
+            playerCondition = "default";
+        }
+    }
+    public void PlayerCondition()
+    {
+        if (playerCondition == "UnderSpot")
+        {
+            TimeCount -= Time.deltaTime;
+            if (PlayerActiveCollider.activeInHierarchy == false)
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    //SoundManager.instance.ReflectAudio();
+                    PlayerActiveCollider.SetActive(true);
+                    stuckAudio.Play();
+                }
+            }
+
+            if (TimeCount <= 0)
+            {
+                anim.SetTrigger(isDeath);
+                //Death();
+            }
+        }
+        else
+        {
+            
+            TimeCount = TimeCountSet;
+            PlayerActiveCollider.SetActive(false);
+            outAudio.Play();
+            
+        }
+
+        if (TimeCount <= 0)
+        {
+            //SoundManager.instance.
+            anim.SetTrigger(isDeath);
+            
+        }
+    }
+    public void Death()
+    {
+        //GameOver
+        //Destroy(gameObject);
+        //回到出生点
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+    public void renewCondition()
+    {
+        anim.SetBool(isOut, false);
     }
 }

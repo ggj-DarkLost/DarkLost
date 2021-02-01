@@ -3,7 +3,10 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - EnemyDetector
+  - PlayerActiveCollider
   layers:
   - Default
   - TransparentFX
@@ -18,9 +21,9 @@ TagManager:
   - Player
   - Dog
   - Frontground
-  - 
-  - 
-  - 
+  - EnemyDetector
+  - PlayerActiveCollider
+  - CameraCollider
   - 
   - 
   - 

@@ -25,6 +25,9 @@ public class ActiveAI : MonoBehaviour
     {
         if (collision.tag == "PlayerActiveCollider")
         {
+            FlashLight.gameObject.SetActive(false);
+            GetComponent<NavMeshAgent>().enabled = false;
+            agentMover.enabled = false;
             GetComponent<ActiveAI>().enabled = false;
         }
     }

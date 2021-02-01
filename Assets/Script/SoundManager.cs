@@ -8,12 +8,9 @@ public class SoundManager : MonoBehaviour
 
     public AudioSource audioSource;
     [Header("主角音效")]
-    public AudioClip walkAudio, openTorchAudio, reflectAudio, stuckAudio, outAudio;
-    [Header("敌人音效")]
-    public AudioClip enemyAudio;
-    [Header("狗叫")]
-    public AudioClip dogAudio;
-
+    public AudioClip walkAudio, openTorchAudio, stuckAudio,outAudio;
+    //, reflectAudio, stuckAudio, outAudio
+    
     private void Awake()
     {
         instance = this;
@@ -22,6 +19,7 @@ public class SoundManager : MonoBehaviour
     public void WalkAudio()
     {
         audioSource.clip = walkAudio;
+        audioSource.loop = true;
         audioSource.Play();
     }
     //开关手电
@@ -29,13 +27,14 @@ public class SoundManager : MonoBehaviour
     {
         audioSource.clip = openTorchAudio;
         audioSource.Play();
+        print("OT");
     }
     //反射光
-    public void ReflectAudio()
-    {
-        audioSource.clip = reflectAudio;
-        audioSource.Play();
-    }
+    //public void ReflectAudio()
+    //{
+    //    audioSource.clip = reflectAudio;
+    //    audioSource.Play();
+    //}
     //困住
     public void StuckAudio()
     {
@@ -48,16 +47,5 @@ public class SoundManager : MonoBehaviour
         audioSource.clip = outAudio;
         audioSource.Play();
     }
-    //敌人叫声
-    public void EnemyAudio()
-    {
-        audioSource.clip = enemyAudio;
-        audioSource.Play();
-    }
-    //狗叫
-    public void DogAudio()
-    {
-        audioSource.clip = dogAudio;
-        audioSource.Play();
-    }
+    
 }
